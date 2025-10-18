@@ -165,14 +165,25 @@ export default function PaginaProdutos() {
                     >
                       {/* Imagem do produto */}
                       <div className="relative h-48 bg-gray-100">
-                        <Image
-                          className="w-full h-full object-cover"
-                          src={obter_url_imagem_completa(produto.imagem_url) || '/placeholder.png'}
-                          alt={produto.titulo || 'Produto sem nome'}
-                          width={300}
-                          height={200}
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                        />
+                        {produto.imagem_url ? (
+                          <Image
+                            className="w-full h-full object-cover"
+                            src={produto.imagem_url}
+                            alt={produto.titulo || 'Produto sem nome'}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            onError={() => {
+                              console.error('Erro ao carregar imagem:', produto.imagem_url);
+                            }}
+                            onLoad={() => {
+                              console.log('Imagem carregada com sucesso:', produto.imagem_url);
+                            }}
+                          />
+                        ) : (
+                          <div className="w-full h-full flex items-center justify-center text-gray-400">
+                            <Package className="w-12 h-12" />
+                          </div>
+                        )}
                         
                         {/* Tags de Status e Categoria */}
                         <div className="absolute top-3 right-3 flex flex-col gap-1">
