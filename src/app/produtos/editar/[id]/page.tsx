@@ -66,11 +66,7 @@ export default function PaginaEditarProduto() {
               imagemUrl: produto.imagem_url || ''
             });
             if (produto.imagem_url) {
-              console.log('🔍 Debug - produto.imagem_url:', produto.imagem_url);
-              const urlCompleta = obter_url_imagem_completa(produto.imagem_url);
-              console.log('🔍 Debug - URL completa:', urlCompleta);
-              console.log('🔍 Debug - SERVER_BASE_URL:', process.env.NEXT_PUBLIC_SERVER_URL);
-              setPreviewImagem(urlCompleta || '');
+              setPreviewImagem(obter_url_imagem_completa(produto.imagem_url) || '');
             }
             setProdutoCarregado(true);
           }
