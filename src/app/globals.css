@@ -1,26 +1,205 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
+/* Configuração das fontes */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --font-dm-sans: 'DM Sans', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* Reset e configurações base */
+* {
+  box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  font-family: var(--font-poppins);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #FBF4F4;
+  color: #3D3D3D;
+  font-family: var(--font-poppins);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Utilitários personalizados */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  /* Classes para títulos DM Sans */
+  .title-lg {
+    font-family: var(--font-dm-sans);
+    font-size: 28px;
+    line-height: 120%;
+    font-weight: 700;
+  }
+  
+  .title-md {
+    font-family: var(--font-dm-sans);
+    font-size: 24px;
+    line-height: 120%;
+    font-weight: 700;
+  }
+  
+  .title-sm {
+    font-family: var(--font-dm-sans);
+    font-size: 18px;
+    line-height: 120%;
+    font-weight: 700;
+  }
+  
+  /* Classes para Poppins */
+  .subtitle {
+    font-family: var(--font-poppins);
+    font-size: 16px;
+    line-height: 120%;
+    font-weight: 600;
+  }
+  
+  .body-md {
+    font-family: var(--font-poppins);
+    font-size: 16px;
+    line-height: 120%;
+    font-weight: 400;
+  }
+  
+  .body-sm {
+    font-family: var(--font-poppins);
+    font-size: 14px;
+    line-height: 120%;
+    font-weight: 400;
+  }
+  
+  .body-xs {
+    font-family: var(--font-poppins);
+    font-size: 12px;
+    line-height: 120%;
+    font-weight: 400;
+  }
+  
+  .label-md {
+    font-family: var(--font-poppins);
+    font-size: 12px;
+    line-height: 120%;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .label-sm {
+    font-family: var(--font-poppins);
+    font-size: 10px;
+    line-height: 120%;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  
+  .action-md {
+    font-family: var(--font-poppins);
+    font-size: 16px;
+    line-height: 120%;
+    font-weight: 500;
+  }
+  
+  .action-sm {
+    font-family: var(--font-poppins);
+    font-size: 14px;
+    line-height: 120%;
+    font-weight: 500;
+  }
+}
+
+/* Estilos de componentes base */
+@layer components {
+  .btn-primary {
+    @apply bg-orange-base text-white px-6 py-3 rounded-button font-action-md hover:bg-orange-dark transition-colors duration-200 flex items-center gap-2;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-orange-base border-2 border-orange-base px-6 py-3 rounded-button font-action-md hover:bg-orange-base hover:text-white transition-colors duration-200 flex items-center gap-2;
+  }
+  
+  .input-base {
+    @apply bg-transparent border-0 border-b border-gray-100 focus:border-orange-base focus:outline-none py-2 text-gray-500 placeholder-gray-200 w-full;
+  }
+  
+  .card-base {
+    @apply bg-white rounded-card shadow-card;
+  }
+  
+  .status-ativo {
+    @apply bg-success text-white;
+  }
+
+  .status-inativo {
+    @apply bg-gray-100 text-gray-500;
+  }
+
+  .status-vendido {
+    @apply bg-blue-base text-white;
+  }
+
+  .status-rascunho {
+    @apply bg-gray-200 text-gray-400;
+  }
+}
+
+/* Animações personalizadas */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Scrollbar personalizada */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
+
+/* Estilos específicos do Figma */
+.gradient-bg {
+  background: linear-gradient(135deg, #5EC5FD 0%, #009CF0 100%);
+}
+
+.shadow-card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.shadow-card-hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Logo do Marketplace */
+.logo-marketplace {
+  background: linear-gradient(135deg, #F24D0D 0%, #5EC5FD 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }

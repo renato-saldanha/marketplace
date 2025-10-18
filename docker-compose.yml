@@ -1,0 +1,90 @@
+version: '3.8'
+
+services:
+  # Banco de dados PostgreSQL
+  postgres:
+    image: postgres:16-alpine
+    container_name: marketplace_postgres
+    restart: always
+    environment:
+      POSTGRES_DB: marketplace_db
+      POSTGRES_USER: marketplace_user
+      POSTGRES_PASSWORD: marketplace_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - marketplace_network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U marketplace_user -d marketplace_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Backend FastAPI
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: marketplace_backend
+    restart: always
+    environment:
+      - DATABASE_URL=postgresql://marketplace_user:marketplace_pass@postgres:5432/marketplace_db
+      - SECRET_KEY=sua-chave-secreta-super-segura-aqui-mude-em-producao
+      - DEBUG=true
+      - ALLOWED_ORIGINS=http://localhost:3000,http://frontend:3000
+    volumes:
+      - ./backend:/app
+      - backend_uploads:/app/uploads
+    ports:
+      - "8000:8000"
+    networks:
+      - marketplace_network
+    depends_on:
+      postgres:
+        condition: service_healthy
+    command: >
+      sh -c "
+        echo 'Aguardando PostgreSQL...' &&
+        sleep 5 &&
+        echo 'Inicializando banco de dados...' &&
+        python init_db.py &&
+        echo 'Criando dados de teste...' &&
+        python criar_dados_teste.py &&
+        echo 'Iniciando servidor...' &&
+        uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+      "
+
+  # Frontend Next.js (Desenvolvimento)
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: marketplace_frontend
+    restart: always
+    environment:
+      - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - NODE_ENV=development
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    ports:
+      - "3000:3000"
+    networks:
+      - marketplace_network
+    depends_on:
+      - backend
+    command: npm run dev
+
+networks:
+  marketplace_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local
+  backend_uploads:
+    driver: local
+

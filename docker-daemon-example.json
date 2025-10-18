@@ -1,0 +1,48 @@
+{
+  "description": "Configuração otimizada do Docker Daemon para produção",
+  "comment": "Copie para /etc/docker/daemon.json e reinicie: sudo systemctl restart docker",
+  
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3",
+    "labels": "production"
+  },
+  
+  "storage-driver": "overlay2",
+  
+  "live-restore": true,
+  
+  "userland-proxy": false,
+  
+  "icc": false,
+  
+  "default-ulimits": {
+    "nofile": {
+      "Name": "nofile",
+      "Hard": 64000,
+      "Soft": 64000
+    }
+  },
+  
+  "default-address-pools": [
+    {
+      "base": "172.17.0.0/16",
+      "size": 24
+    }
+  ],
+  
+  "max-concurrent-downloads": 3,
+  "max-concurrent-uploads": 5,
+  
+  "debug": false,
+  
+  "experimental": false,
+  
+  "metrics-addr": "127.0.0.1:9323",
+  
+  "features": {
+    "buildkit": true
+  }
+}
+

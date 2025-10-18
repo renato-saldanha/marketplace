@@ -1,0 +1,77 @@
+# Frontend Dockerfile - Next.js (Produção Otimizado)
+FROM node:20-alpine AS base
+
+# Argumentos de build
+ARG NEXT_PUBLIC_API_URL
+ARG BUILD_DATE
+ARG VERSION
+
+# ============================================
+# Estágio de dependências
+# ============================================
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+# Copia arquivos de dependências
+COPY package.json package-lock.json* ./
+RUN npm ci --only=production && \
+    npm cache clean --force
+
+# ============================================
+# Estágio de build
+# ============================================
+FROM base AS builder
+WORKDIR /app
+
+# Copia dependências do estágio anterior
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
+
+# Define variáveis de ambiente para build
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    NODE_ENV=production \
+    NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+
+# Build da aplicação com output standalone
+RUN npm run build
+
+# ============================================
+# Estágio de produção
+# ============================================
+FROM base AS runner
+WORKDIR /app
+
+ENV NODE_ENV=production \
+    NEXT_TELEMETRY_DISABLED=1 \
+    PORT=3000 \
+    HOSTNAME="0.0.0.0"
+
+# Cria usuário não-root
+RUN addgroup --system --gid 1001 nodejs && \
+    adduser --system --uid 1001 nextjs && \
+    mkdir -p /app/.next && \
+    chown nextjs:nodejs /app/.next
+
+# Copia apenas arquivos necessários do builder
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# Labels
+LABEL maintainer="seu-email@exemplo.com"
+LABEL build_date="${BUILD_DATE}"
+LABEL version="${VERSION}"
+
+# Muda para usuário não-root
+USER nextjs
+
+EXPOSE 3000
+
+# Healthcheck
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+    CMD node -e "require('http').get('http://localhost:3000', (r) => {if (r.statusCode !== 200) throw new Error(r.statusCode)})"
+
+# Inicia o servidor
+CMD ["node", "server.js"]
+

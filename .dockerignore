@@ -1,0 +1,80 @@
+# Dependências (serão instaladas no container)
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+.pytest_cache
+.mypy_cache
+.coverage
+htmlcov/
+
+# Next.js
+.next
+out
+build
+dist
+*.tsbuildinfo
+
+# Testes
+coverage
+.nyc_output
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+__tests__
+tests/
+
+# Ambiente
+.env*
+.vscode
+.idea
+*.swp
+*.swo
+*~
+
+# Git
+.git
+.gitignore
+.gitattributes
+.github
+
+# Logs
+logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Banco de dados local
+*.db
+*.sqlite
+*.sqlite3
+test.db
+
+# Uploads (serão mapeados via volume)
+uploads
+backend/uploads
+
+# Documentação (exceto README)
+*.md
+!README.md
+
+# Temporários
+tmp
+temp
+.cache
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+.dockerignore
