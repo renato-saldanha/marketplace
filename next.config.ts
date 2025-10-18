@@ -11,18 +11,25 @@ const nextConfig: NextConfig = {
   // Configuração de imagens
   images: {
     remotePatterns: [
+      // Desenvolvimento local
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '8000',
         pathname: '/uploads/**',
       },
+      // Render (produção) - ajuste o hostname conforme sua URL
       {
         protocol: 'https',
-        hostname: 'localhost',
-        port: '8000',
+        hostname: '*.onrender.com',
         pathname: '/uploads/**',
       },
+      // Domínio customizado (se configurar)
+      // {
+      //   protocol: 'https',
+      //   hostname: 'api.seusite.com',
+      //   pathname: '/uploads/**',
+      // },
     ],
     formats: ['image/webp', 'image/avif'],
   },
@@ -36,7 +43,8 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   
   // Configuração para Docker (standalone output)
-  output: 'standalone',
+  // Descomente se for usar Docker:
+  // output: 'standalone',
 };
 
 export default nextConfig;
