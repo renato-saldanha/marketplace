@@ -166,12 +166,10 @@ export default function PaginaProdutos() {
                       {/* Imagem do produto */}
                       <div className="relative h-48 bg-gray-100">
                         {produto.imagem_url ? (
-                          <Image
+                          <img
                             className="w-full h-full object-cover"
                             src={produto.imagem_url}
                             alt={produto.titulo || 'Produto sem nome'}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             onError={() => {
                               console.error('Erro ao carregar imagem:', produto.imagem_url);
                             }}

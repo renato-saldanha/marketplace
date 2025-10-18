@@ -60,12 +60,10 @@ export default function ProdutosDestaque({ produtos, loading = false, onProdutoC
           <div className="flex items-center gap-4">
             {/* Imagem do produto */}
             <div className="relative w-16 h-16 rounded-lg overflow-hidden flex-shrink-0">
-              <Image
+              <img
                 src={obter_url_imagem_completa(produto.imagem_url) || '/placeholder.png'}
                 alt={produto.titulo}
-                fill
-                className="object-cover"
-                sizes="64px"
+                className="w-full h-full object-cover"
               />
             </div>
 

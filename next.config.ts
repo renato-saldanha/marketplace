@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
       },
     ],
     formats: ['image/webp', 'image/avif'],
-    unoptimized: true, // Desabilitar otimização para resolver problema de 400
+    unoptimized: true, 
     dangerouslyAllowSVG: true,
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
