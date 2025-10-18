@@ -247,12 +247,10 @@ export default function ProductsTab() {
                         <div className="flex items-center gap-4">
                           <div className="flex-shrink-0 h-16 w-16">
                             {produto.imagem_url ? (                           
-                              <Image
+                              <img
                                 className="h-16 w-16 rounded-lg object-cover"
                                 src={produto.imagem_url}
                                 alt={produto.titulo}
-                                width={64}
-                                height={64}
                               />
                             ) : (
                               <div className="h-16 w-16 rounded-lg bg-gray-100 flex items-center justify-center">
@@ -337,11 +335,10 @@ export default function ProductsTab() {
               <div className="mb-6">
                 {produtoSelecionado.imagem_url ? (
                   <div className="relative w-full h-64 rounded-lg overflow-hidden">
-                    <Image
+                    <img
                       src={produtoSelecionado.imagem_url}
                       alt={produtoSelecionado.titulo}
-                      fill
-                      className="object-cover"
+                      className="w-full h-full object-cover"
                     />
                   </div>
                 ) : (

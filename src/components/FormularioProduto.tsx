@@ -134,13 +134,10 @@ export default function FormularioProduto({
                 </div>
               ) : (
                 <div className="relative">
-                  <Image
-                    width={256}
-                    height={256}
+                  <img
                     src={previewImagem}
                     alt="Preview da imagem do produto"
                     className="w-full h-64 object-cover rounded-lg"
-                    style={{ width: "auto", height: "auto" }}
                   />
                   <button
                     type="button"
