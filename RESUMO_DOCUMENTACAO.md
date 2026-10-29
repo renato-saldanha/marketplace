@@ -67,7 +67,7 @@ O projeto Marketplace agora possui **documentação completa e profissional** pr
 
 ### Frontend (package.json)
 ```json
-✅ next 15.5.5          - Framework React
+✅ next 16.4.3          - Framework React
 ✅ react 19.1.0         - Biblioteca UI
 ✅ typescript ^5        - Tipagem estática
 ✅ axios ^1.12.2        - Cliente HTTP

@@ -1,6 +1,6 @@
 # 🛒 Marketplace - Plataforma de Vendas Online
 
-Uma plataforma completa de marketplace desenvolvida com **Next.js 15**, **FastAPI** e **PostgreSQL**, oferecendo uma experiência moderna e responsiva para vendedores e compradores.
+Uma plataforma completa de marketplace desenvolvida com **Next.js 16**, **FastAPI** e **PostgreSQL**, oferecendo uma experiência moderna e responsiva para vendedores e compradores.
 
 ---
 
@@ -122,7 +122,7 @@ npm run dev  # http://localhost:3000
 #### Dependências Principais
 ```json
 {
-  "next": "15.5.5",                    // Framework React
+  "next": "16.4.3",                    // Framework React
   "react": "19.1.0",                   // Biblioteca UI
   "react-dom": "19.1.0",               // React DOM
   "typescript": "^5",                  // TypeScript
