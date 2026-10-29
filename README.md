@@ -1072,6 +1072,26 @@ docker build -t marketplace-backend .
 docker run -p 8000:8000 marketplace-backend
 ```
 
+## ☁️ **Demo na Vercel**
+
+- Front: https://marketplace-liart-one.vercel.app
+- API: https://marketplace-api-beryl.vercel.app
+- Login da demo: `vendedor@teste.com` / `senha123` (dados fictícios)
+
+Variáveis de ambiente do projeto na Vercel (as `NEXT_PUBLIC_*` entram no build, então faça o deploy depois de alterá-las):
+
+| Variável | Valor |
+| --- | --- |
+| `NEXT_PUBLIC_SERVER_URL` | URL da API, sem `/api` |
+| `NEXT_PUBLIC_API_URL` | URL da API com `/api` |
+| `NEXT_PUBLIC_DEMO` | `1` exibe a faixa "Modo demonstração" |
+
+```bash
+vercel deploy --prod
+```
+
+As imagens dos produtos ficam no Vercel Blob e são liberadas em `next.config` (`*.public.blob.vercel-storage.com`).
+
 ## 📝 **Próximas Funcionalidades**
 
 - [ ] **Testes E2E**: Cypress para testes end-to-end

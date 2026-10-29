@@ -7,7 +7,7 @@ import { useAutenticacao } from '@/lib/hooks/useApi';
 import { Building2, Package, User, LogOut } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
-import { SERVER_BASE_URL } from '@/lib/axios-config';
+import { obter_url_imagem_completa } from '@/lib/utils';
 
 
 export default function PageHeader() {
@@ -107,7 +107,7 @@ export default function PageHeader() {
                   <div className="w-8 h-8 rounded-full overflow-hidden bg-orange-base flex items-center justify-center">
                     {usuario && usuario.foto_perfil_thumb ? (
                       <Image
-                        src={`${SERVER_BASE_URL}${usuario.foto_perfil_thumb}`}
+                        src={obter_url_imagem_completa(usuario.foto_perfil_thumb) || ''}
                         alt={usuario.nome}
                         width={32}
                         height={32}

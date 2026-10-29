@@ -86,3 +86,4 @@ nginx/ssl/*.crt
 # Backups
 backup_*.sql
 backup_*.sql.gz
+.vercel

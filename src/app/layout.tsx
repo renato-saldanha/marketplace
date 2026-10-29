@@ -4,6 +4,7 @@ import './globals.css';
 import { ToastContainer } from '@/components/ui/Toast';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import PWAInstaller from '@/components/PWAInstaller';
+import DemoBanner from '@/components/DemoBanner';
 
 // Configurar DM Sans para títulos
 const dmSans = DM_Sans({ 
@@ -47,6 +48,7 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={`${dmSans.variable} ${poppins.variable} font-poppins`}>
         <ErrorBoundary>
+          <DemoBanner />
           {children}
           <ToastContainer />
           <PWAInstaller />
